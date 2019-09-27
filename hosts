@@ -1,0 +1,12 @@
+[all:vars]
+ansible_user=ubuntu
+
+[zookeeper]
+18.206.225.242 zookeeper_id=1 zookeeper_advertise=0.0.0.0
+3.89.246.21    zookeeper_id=2 zookeeper_advertise=0.0.0.0
+54.226.255.195 zookeeper_id=3 zookeeper_advertise=0.0.0.0
+
+[kafka]
+18.206.225.242 kafka_broker_id=1
+3.89.246.21    kafka_broker_id=2
+54.226.255.195 kafka_broker_id=3

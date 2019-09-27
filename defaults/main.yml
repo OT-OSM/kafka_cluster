@@ -1,0 +1,13 @@
+---
+# defaults file for osm_kafka_cluster
+kafka_service_user_name: "kafka"
+kafka_service_group_name: "kafka"
+kafka_logs_dir: "/var/log/kafka"
+
+max_client_connection: "0"
+init_limit: "5"
+sync_limit: "2"
+tick_time: "2000"
+
+zk_client_port: 2181
+zookeeper_hosts: "{{ groups['zookeeper'] }}"

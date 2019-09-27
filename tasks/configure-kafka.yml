@@ -1,0 +1,25 @@
+---
+- name: Creating the log directory for kafka
+  file:
+    path: "{{ kafka_logs_dir }}"
+    state: directory
+    owner: "{{ kafka_service_user_name }}"
+    group: "{{ kafka_service_group_name }}"
+
+- name: Configuring kafka service
+  template:
+    src: "kafka-server.service.j2"
+    dest: "/etc/systemd/system/kafka-server.service"
+    owner: root
+    group: root
+  notify:
+    - Reload systemd daemon
+
+- name: Updating kafka cluster configuration
+  template:
+    src: "server.properties.j2"
+    dest: "{{ installation_dir }}/kafka/config/server.properties"
+    owner: "{{ kafka_service_user_name }}"
+    group: "{{ kafka_service_group_name }}"
+  notify:
+    - Start kafka service

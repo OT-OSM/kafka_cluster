@@ -1,0 +1,41 @@
+---
+- name: "Downloading and unarchiving kafka {{ kafka_major_version}}-{{ kafka_minor_verion }}"
+  unarchive:
+    src: "http://www-us.apache.org/dist/kafka/{{ kafka_minor_verion }}/kafka_{{ kafka_major_version }}-{{ kafka_minor_verion }}.tgz"
+    dest: "{{ installation_dir }}"
+    remote_src: yes
+  register: task_result
+  until: task_result is succeeded
+  retries: 5
+  delay: 5
+
+- name: Creating group for kafka
+  group:
+    name: "{{ kafka_service_group_name }}"
+    state: present
+
+- name: Creating system user for kafka
+  user:
+    name: "{{ kafka_service_user_name }}"
+    group: "{{ kafka_service_group_name }}"
+    shell: /sbin/nologin
+    password: "!!"
+    createhome: no
+    system: yes
+    state: present
+
+- name: Renaming kafka downloaded directory for ease of use
+  copy:
+    src: "{{ installation_dir }}/kafka_{{ kafka_major_version }}-{{ kafka_minor_verion }}/"
+    dest: "{{ installation_dir }}/kafka"
+    owner: "{{ kafka_service_user_name }}"
+    group: "{{ kafka_service_group_name }}"
+    remote_src: yes
+
+- name: Deleting the downloaded kafka folder
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "{{ installation_dir }}/kafka_{{ kafka_major_version }}-{{ kafka_minor_verion }}"
+    - "{{ installation_dir }}/kafka_{{ kafka_major_version }}-{{ kafka_minor_verion }}.tgz"
