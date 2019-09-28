@@ -11,3 +11,9 @@ tick_time: "2000"
 
 zk_client_port: 2181
 zookeeper_hosts: "{{ groups['zookeeper'] }}"
+
+zookeeper_data_dir: "/opt/zookeeper"
+installation_dir: "/opt"
+
+kafka_major_version: "2.12"
+kafka_minor_verion: "2.3.0"

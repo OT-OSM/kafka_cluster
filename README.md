@@ -50,7 +50,22 @@ kafka3   kafka_broker_id=3
 [kafka_cluster:children]     # Parend group for kafka and zookeeper group
 zookeeper
 kafka
+[zookeeper]                  # Host and Id information for zookeeper
+zookeeper1    zookeeper_id=1
+zookeeper2    zookeeper_id=2
+zookeeper3    zookeeper_id=3
 
+[kafka]                      # Host and broker id information for kafka
+kafka1   kafka_broker_id=1
+kafka2   kafka_broker_id=2
+kafka3   kafka_broker_id=3
+
+[kafka_cluster:children]     # Parent group for kafka and zookeeper group
+zookeeper
+kafka
+
+[kafka_cluster:vars]         # Variabled for kafka_cluster parent group
+ansible_user=ubuntu
 [kafka_cluster:vars]         # Variabled for kafka_cluster parent group
 ansible_user=ubuntu
 ```
