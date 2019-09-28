@@ -3,7 +3,7 @@
 # The id of the broker. This must be set to a unique integer for each broker.
 broker.id={{ kafka_broker_id }}
 
-advertised.listeners=PLAINTEXT://{{ inventory_hostname }}:9092
+advertised.listeners=PLAINTEXT://{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}:9092
 
 # Maps listener names to security protocols, the default is for them to be the same. See the config documentation for more details
 #listener.security.protocol.map=PLAINTEXT:PLAINTEXT,SSL:SSL,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_SSL:SASL_SSL
@@ -24,7 +24,6 @@ socket.receive.buffer.bytes=102400
 socket.request.max.bytes=104857600
 
 
-
 log.dirs={{ kafka_logs_dir }}
 
 num.partitions=1
@@ -41,7 +40,15 @@ log.segment.bytes=1073741824
 
 log.retention.check.interval.ms=300000
 
-zookeeper.connect={{ zookeeper_hosts | join(":{0},".format(zk_client_port)) }}:{{ zk_client_port }}
+{% set all_zk = [] -%}
+{% set zk_hosts = groups.zookeeper %}
+{% for host in zk_hosts -%}
+  {% set zk_ip = hostvars[host].ipv4_address|default(hostvars[host]['ansible_default_ipv4']['address']) -%}
+  {% set _ = all_zk.append("%s:%s" % (zk_ip, zk_client_port)) -%}
+{% endfor -%}
+{% set zk_servers = all_zk | join(',') -%}
+
+zookeeper.connect={{ zk_servers }}
 
 zookeeper.connection.timeout.ms=6000
 
