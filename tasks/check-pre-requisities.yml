@@ -11,9 +11,10 @@
 
 - name: Checking Java is installed or not
   command: "java -version"
+  changed_when: false
   register: java_result
   ignore_errors: true
-  
+
 - name: Checking Java is installed or not
   fail:
     msg: "Java is not installed please install java using osm_java role"
