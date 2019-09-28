@@ -1,7 +1,11 @@
 ---
-- name: "Downloading and unarchiving kafka {{ kafka_major_version}}-{{ kafka_minor_verion }}"
+- name: Setting internal variables for convinience
+  set_fact:
+    base_url: "http://www-us.apache.org/dist/kafka/{{ kafka_minor_verion }}"
+
+- name: "Unarchiving kafka {{ kafka_major_version}}-{{ kafka_minor_verion }}"
   unarchive:
-    src: "http://www-us.apache.org/dist/kafka/{{ kafka_minor_verion }}/kafka_{{ kafka_major_version }}-{{ kafka_minor_verion }}.tgz"
+    src: "{{ base_url }}/kafka_{{ kafka_major_version }}-{{ kafka_minor_verion }}.tgz"
     dest: "{{ installation_dir }}"
     remote_src: yes
   register: task_result
