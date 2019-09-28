@@ -1,5 +1,5 @@
 ---
-- hosts: all
-  become: true
+- hosts: kafka_cluster
   roles:
-    - osm_kafka_cluster
+    - role: osm_kafka_cluster
+      become: yes
