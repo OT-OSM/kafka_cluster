@@ -37,18 +37,22 @@ You can find our java role [here](https://github.com/OT-OSM/java)
 An inventory should look like this:-
 
 ```ini
-[all:vars]               # Defined variables for all
-ansible_user=ubuntu
-
-[zookeeper]              # Host and Id information for zookeeper
+[zookeeper]                  # Host and Id information for zookeeper
 zookeeper1    zookeeper_id=1
 zookeeper2    zookeeper_id=2
 zookeeper3    zookeeper_id=3
 
-[kafka]                 # Host and broker id information for kafka
+[kafka]                      # Host and broker id information for kafka
 kafka1   kafka_broker_id=1
 kafka2   kafka_broker_id=2
 kafka3   kafka_broker_id=3
+
+[kafka_cluster:children]     # Parend group for kafka and zookeeper group
+zookeeper
+kafka
+
+[kafka_cluster:vars]         # Variabled for kafka_cluster parent group
+ansible_user=ubuntu
 ```
 
 ## Example Playbook
@@ -57,10 +61,10 @@ Here is an example playbook:-
 
 ```yml
 ---
-- hosts: all
-  become: yes
+- hosts: kafka_cluster
   roles:
-    - osm_kafka_cluster
+    - role: osm_kafka_cluster
+      become: yes
 ```
 
 ## Usage
