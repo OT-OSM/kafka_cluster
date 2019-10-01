@@ -1,0 +1,12 @@
+dataDir={{ zookeeper_data_dir }}
+# the port at which the clients will connect
+clientPort={{ zk_client_port }}
+# disable the per-ip limit on the number of connections since this is a non-production config
+maxClientCnxns={{ max_client_connection }}
+initLimit={{ init_limit }}
+syncLimit={{ sync_limit }}
+tickTime={{ tick_time }}
+
+{% for host in groups.zookeeper %}
+server.{{ hostvars[host].zookeeper_id }}={{ hostvars[host].ipv4_address|default(hostvars[host]['ansible_default_ipv4']['address']) }}:2888:3888
+{% endfor %}

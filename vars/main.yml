@@ -1,0 +1,7 @@
+---
+# vars file for osm_kafka_cluster
+zookeeper_data_dir: "/opt/zookeeper"
+installation_dir: "/opt"
+
+kafka_major_version: "2.12"
+kafka_minor_verion: "2.3.0"
