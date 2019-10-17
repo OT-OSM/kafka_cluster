@@ -1,0 +1,12 @@
+[Unit]
+Description=Zookeeper
+Before=kafka-server.service
+After=network.target
+
+[Service]
+User=kafka
+ExecStart={{ installation_dir }}/kafka/bin/zookeeper-server-start.sh {{ installation_dir }}/kafka/config/zookeeper.properties
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
