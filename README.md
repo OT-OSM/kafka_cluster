@@ -77,5 +77,15 @@ For using this role you have to execute playbook only
 ansible-playbook -i hosts site.yml
 ```
 
+## Running Test Cases for Setup
+
+For running the test cases, we have a seperate folder named [inspec](./inspec). Inspec (https://www.inspec.io/) should be installed if you want to run the test cases.
+
+Command which needs to be run
+
+```shell
+inspec exec . -t ssh://username@server_ip -i /path/to/keyfile
+```
+
 ## Author
 **[Abhishek Dubey](mailto:abhishek.dubey@opstree.com)**
