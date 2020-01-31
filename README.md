@@ -31,6 +31,8 @@ You can find our java role [here](https://github.com/OT-OSM/java)
 |init_limit| 5 | initLimit is timeouts ZooKeeper uses to limit the length of time the ZooKeeper servers in quorum have to connect to a leader|
 |sync_limit | 2 | The entry syncLimit limits how far out of date a server can be from a leader|
 |tick_time | 2000 | The basic time unit in milliseconds used by ZooKeeper. It is used to do heartbeats and the minimum session timeout will be twice the tickTime |
+|max_memory_heap | -Xmx256M | This is the maximum heap size of kafka which should be change according to the server configuration |
+|min_memory_heap | -Xmx128M | This is the minimum heap size of kafka which should be change according to the server configuration |
 
 ## Inventory
 
