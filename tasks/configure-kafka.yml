@@ -5,6 +5,7 @@
     state: directory
     owner: "{{ kafka_service_user_name }}"
     group: "{{ kafka_service_group_name }}"
+    mode: 0755
 
 - name: Configuring kafka service
   template:

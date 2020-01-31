@@ -17,3 +17,5 @@ installation_dir: "/opt"
 
 kafka_major_version: "2.12"
 kafka_minor_verion: "2.3.0"
+max_memory_heap: -Xmx256M
+min_memory_heap: -Xms128M
