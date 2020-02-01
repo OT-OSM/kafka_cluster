@@ -1,6 +1,10 @@
-# Ansible Role: Kafka Cluster
+![CiS Compliant](https://img.shields.io/badge/cis-compliant-brightgreen)
+[![Apache License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/OT-OSM/mysql)
 
-An ansible role which will setup kafka and zookeeper cluster for your environment
+# OSM: Kafka
+
+A high end ansible role which will setup kafka and zookeeper cluster.
 
 ## Requirements
 
@@ -10,27 +14,30 @@ You can find our java role [here](https://github.com/OT-OSM/java)
 
 ## Role Variables
 
-### Mandatory Variables
-#### Needs to be change depending upon environment
+We have categorized variables into two part i.e. **[Manadatory]()** and **[Optional]()**
 
-|**Variables**| **Default Values**| **Description**|
-|----------|---------|---------------|
-|zookeeper_data_dir| /opt/zookeeper | Data directory where zookeeper will store its information |
-|installation_dir | /opt | Directory where you want to install kafka |
-|kafka_major_version | 2.12 | Major version of kafka release |
-|kafka_minor_verion | 2.2.1 | Minor version of kafka release |
+### Mandatory Variables
+
+|**Variables**| **Default Values**| **Possible Values** | **Description**|
+|-------------|-------------------|---------------------|----------------|
+|zookeeper_data_dir| `/opt/zookeeper` | *Any Linux Directory* | Data directory where zookeeper will store its information |
+|installation_dir | `/opt` | *Any Linux Directory* | Directory where you want to install kafka |
+|kafka_major_version | `2.12` | *Any valid kafka version* | Major version of kafka release |
+|kafka_minor_verion | `2.2.1` | *Any valid kafka version* | Minor version of kafka release |
 
 ### Optional Variables
 
-|**Variables**| **Default Values**| **Description**|
-|--------------|-------------|-------------------|
-|kafka_service_user_name| kafka | Kafka system user name from which all things will run |
-|kafka_service_group_name| kafka | Kafka system group name from which all things will run |
-|kafka_logs_dir| /var/log/kafka | Directory where kafak will generate logs |
-|zk_client_port| 2181 | Zookeeper client port for connection |
-|init_limit| 5 | initLimit is timeouts ZooKeeper uses to limit the length of time the ZooKeeper servers in quorum have to connect to a leader|
-|sync_limit | 2 | The entry syncLimit limits how far out of date a server can be from a leader|
-|tick_time | 2000 | The basic time unit in milliseconds used by ZooKeeper. It is used to do heartbeats and the minimum session timeout will be twice the tickTime |
+|**Variables**| **Default Values**| **Possible Values** | **Description**|
+|-------------|-------------------|---------------------|----------------|
+|kafka_service_user_name| `kafka` | *Service username for kafka* | Kafka system user name from which all things will run |
+|kafka_service_group_name| `kafka` | *Service groupname for kafka* | Kafka system group name from which all things will run |
+|kafka_logs_dir| `/var/log/kafka` | *Any Linux Directory* | Directory where kafak will generate logs |
+|zk_client_port| `2181` | *Any Linux Port Number* | Zookeeper client port for connection |
+|init_limit| `5` | *Any integer time* | initLimit is timeouts ZooKeeper uses to limit the length of time the ZooKeeper servers in quorum have to connect to a leader|
+|sync_limit | `2` | *Any integer time*  | The entry syncLimit limits how far out of date a server can be from a leader|
+|tick_time | `2000` | *Any integer time* | The basic time unit in milliseconds used by ZooKeeper. It is used to do heartbeats and the minimum session timeout will be twice the tickTime |
+|max_memory_heap | `-Xmx256M` | *Memory Size of JVM* | This is the maximum heap size of kafka which should be change according to the server configuration |
+|min_memory_heap | `-Xmx128M` | *Memory Size of JVM* | This is the minimum heap size of kafka which should be change according to the server configuration |
 
 ## Inventory
 
@@ -75,5 +82,16 @@ For using this role you have to execute playbook only
 ansible-playbook -i hosts site.yml
 ```
 
+## Running Test Cases for Setup
+
+For running the test cases, we have a seperate folder named [inspec](./inspec). Inspec (https://www.inspec.io/) should be installed if you want to run the test cases.
+
+Command which needs to be run
+
+```shell
+inspec exec . -t ssh://username@server_ip -i /path/to/keyfile
+```
+
 ## Author
+
 **[Abhishek Dubey](mailto:abhishek.dubey@opstree.com)**

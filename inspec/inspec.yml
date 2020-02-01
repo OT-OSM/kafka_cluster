@@ -1,0 +1,10 @@
+---
+name: kafka-osm-test-cases
+title: Test cases for OSM Kafka Cluster
+maintainer: OpsTree
+summary: OSM kafka cluster InSpec profile.
+license: Apache-2.0
+Description: An InSpec Profile.
+version: 0.1.0
+supports:
+  platform: os
