@@ -14,7 +14,7 @@ You can find our java role [here](https://github.com/OT-OSM/java)
 
 ## Role Variables
 
-We have categorized variables into two part i.e. **[Manadatory]()** and **[Optional]()**
+We have categorized variables into two part i.e. **[Mandatory]()** and **[Optional]()**
 
 ### Mandatory Variables
 
