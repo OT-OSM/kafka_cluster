@@ -1,7 +1,7 @@
 ---
 - name: Setting internal variables for convinience
   set_fact:
-    base_url: "http://www-us.apache.org/dist/kafka/{{ kafka_minor_verion }}"
+    base_url: "https://dlcdn.apache.org/kafka/{{ kafka_minor_verion }}"
 
 - name: "Unarchiving kafka {{ kafka_major_version}}-{{ kafka_minor_verion }}"
   unarchive:
