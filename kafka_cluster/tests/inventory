@@ -1,0 +1,16 @@
+[zookeeper]
+zookeeper1    zookeeper_id=1
+zookeeper2    zookeeper_id=2
+zookeeper3    zookeeper_id=3
+
+[kafka]
+kafka1   kafka_broker_id=1
+kafka2   kafka_broker_id=2
+kafka3   kafka_broker_id=3
+
+[kafka_cluster:children]
+zookeeper
+kafka
+
+[kafka_cluster:vars]
+ansible_user=ubuntu
