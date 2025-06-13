@@ -1,4 +1,8 @@
----
+- name: Determine Kafka's Broker ID
+  set_fact:
+    kafka_broker_id: "{{ groups['kafka'].index(inventory_hostname) + 1 }}"
+    
+
 - name: Creating the log directory for kafka
   file:
     path: "{{ kafka_logs_dir }}"
@@ -24,3 +28,4 @@
     group: "{{ kafka_service_group_name }}"
   notify:
     - Start kafka service
+

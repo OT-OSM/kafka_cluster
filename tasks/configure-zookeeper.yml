@@ -1,4 +1,9 @@
 ---
+
+- name: Determine Zookeeper's ID
+  set_fact:
+    zookeeper_id: "{{ groups['zookeeper'].index(inventory_hostname) + 1 }}"
+  
 - name: Creating the data directory for zookeeper
   file:
     path: "{{ zookeeper_data_dir }}"
@@ -22,7 +27,7 @@
     dest: "{{ zookeeper_data_dir }}/myid"
     owner: "{{ kafka_service_user_name }}"
     group: "{{ kafka_service_group_name }}"
-
+  
 - name: Updating zookeeper configuration
   template:
     src: "zookeeper.properties.j2"
@@ -31,3 +36,4 @@
     group: "{{ kafka_service_group_name }}"
   notify:
     - Start zookeeper service
+
