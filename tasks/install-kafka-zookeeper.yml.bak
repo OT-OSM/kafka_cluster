@@ -45,3 +45,4 @@
   loop:
     - "{{ installation_dir }}/kafka_{{ kafka_major_version }}-{{ kafka_minor_verion }}"
     - "{{ installation_dir }}/kafka_{{ kafka_major_version }}-{{ kafka_minor_verion }}.tgz"
+

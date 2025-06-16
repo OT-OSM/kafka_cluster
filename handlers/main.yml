@@ -1,17 +1,17 @@
 ---
 # handlers file for osm_kafka_cluster
 - name: Reload systemd daemon
-  systemd:
+  ansible.builtin.systemd:
     daemon_reload: yes
 
 - name: Start zookeeper service
-  service:
+  ansible.builtin.service:
     name: zookeeper
     state: restarted
-    enabled: yes
+    enabled: true
 
 - name: Start kafka service
-  service:
+  ansible.builtin.service:
     name: kafka-server
     state: restarted
-    enabled: yes
+    enabled: true
