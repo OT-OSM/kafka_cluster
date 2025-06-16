@@ -1,5 +1,4 @@
 ---
-
 - name: Determine Zookeeper's ID
   ansible.builtin.set_fact:
     zookeeper_id: "{{ groups['zookeeper'].index(inventory_hostname) + 1 }}"
