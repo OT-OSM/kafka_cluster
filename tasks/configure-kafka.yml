@@ -1,5 +1,4 @@
 ---
-
 - name: Determine Kafka's Broker ID
   ansible.builtin.set_fact:
     kafka_broker_id: "{{ groups['kafka'].index(inventory_hostname) + 1 }}"
