@@ -1,33 +1,40 @@
 ---
-- name: Creating the data directory for zookeeper
-  file:
+- name: Determine Zookeeper's ID
+  ansible.builtin.set_fact:
+    zookeeper_id: "{{ groups['zookeeper'].index(inventory_hostname) + 1 }}"
+
+- name: Creating the data directory for Zookeeper
+  ansible.builtin.file:
     path: "{{ zookeeper_data_dir }}"
     state: directory
     owner: "{{ kafka_service_user_name }}"
     group: "{{ kafka_service_group_name }}"
-    mode: 0755
+    mode: "0755"
 
-- name: Configuring zookeeper service
-  template:
+- name: Configuring Zookeeper service
+  ansible.builtin.template:
     src: "zookeeper.service.j2"
     dest: "/etc/systemd/system/zookeeper.service"
-    owner: root
-    group: root
+    owner: "root"
+    group: "root"
+    mode: "0644"
   notify:
     - Reload systemd daemon
 
-- name: Updating zookeeper broker id configuration
-  template:
+- name: Updating Zookeeper broker id configuration
+  ansible.builtin.template:
     src: "myid.j2"
     dest: "{{ zookeeper_data_dir }}/myid"
     owner: "{{ kafka_service_user_name }}"
     group: "{{ kafka_service_group_name }}"
+    mode: "0644"
 
-- name: Updating zookeeper configuration
-  template:
+- name: Updating Zookeeper configuration
+  ansible.builtin.template:
     src: "zookeeper.properties.j2"
     dest: "{{ installation_dir }}/kafka/config/zookeeper.properties"
     owner: "{{ kafka_service_user_name }}"
     group: "{{ kafka_service_group_name }}"
+    mode: "0644"
   notify:
     - Start zookeeper service

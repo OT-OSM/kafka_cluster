@@ -1,21 +1,21 @@
 ---
-- name: Checking zookeeper hosts are defined or not
-  fail:
+- name: Check if Zookeeper group is defined and non-empty
+  ansible.builtin.fail:
     msg: "Playbook execution failed due to missing or empty required group 'zookeeper'"
   when: groups['zookeeper'] is not defined or groups['zookeeper'] | length == 0
 
-- name: Checking kafka hosts are defined or not
-  fail:
+- name: Check if Kafka group is defined and non-empty
+  ansible.builtin.fail:
     msg: "Playbook execution aborted due to missing or empty required group 'kafka'"
   when: groups['kafka'] is not defined or groups['kafka'] | length == 0
 
-- name: Checking Java is installed or not
-  command: "java -version"
+- name: Check if Java is installed
+  ansible.builtin.command: "java -version"
   changed_when: false
   register: java_result
   ignore_errors: true
 
-- name: Checking Java is installed or not
-  fail:
-    msg: "Java is not installed please install java using osm_java role"
+- name: Fail if Java is not installed
+  ansible.builtin.fail:
+    msg: "Java is not installed. Please install Java using osm_java role."
   when: java_result is failed

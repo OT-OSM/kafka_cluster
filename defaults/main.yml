@@ -15,7 +15,7 @@ zookeeper_hosts: "{{ groups['zookeeper'] }}"
 zookeeper_data_dir: "/opt/zookeeper"
 installation_dir: "/opt"
 
-kafka_major_version: "2.12"
-kafka_minor_verion: "2.3.0"
+kafka_major_version: "2.13"
+kafka_minor_verion: "3.9.1"
 max_memory_heap: -Xmx256M
 min_memory_heap: -Xms128M

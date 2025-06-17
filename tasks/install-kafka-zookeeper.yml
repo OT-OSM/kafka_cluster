@@ -1,45 +1,47 @@
 ---
-- name: Setting internal variables for convinience
-  set_fact:
-    base_url: "http://www-us.apache.org/dist/kafka/{{ kafka_minor_verion }}"
+- name: Setting internal variables for convenient use
+  ansible.builtin.set_fact:
+    base_url: "https://downloads.apache.org/kafka/{{ kafka_minor_verion }}"
 
-- name: "Unarchiving kafka {{ kafka_major_version}}-{{ kafka_minor_verion }}"
-  unarchive:
+- name: Unarchiving Kafka files for version {{ kafka_major_version }}-{{ kafka_minor_verion }}
+  ansible.builtin.unarchive:
     src: "{{ base_url }}/kafka_{{ kafka_major_version }}-{{ kafka_minor_verion }}.tgz"
     dest: "{{ installation_dir }}"
-    remote_src: yes
+    remote_src: true
+    mode: "0755"
   register: task_result
   until: task_result is succeeded
   retries: 5
   delay: 5
 
-- name: Creating group for kafka
-  group:
+- name: Creating group for Kafka
+  ansible.builtin.group:
     name: "{{ kafka_service_group_name }}"
     state: present
 
-- name: Creating system user for kafka
-  user:
+- name: Creating system user for Kafka
+  ansible.builtin.user:
     name: "{{ kafka_service_user_name }}"
     group: "{{ kafka_service_group_name }}"
-    shell: /sbin/nologin
+    shell: "/sbin/nologin"
     password: "!!"
-    createhome: no
-    system: yes
+    createhome: false
+    system: true
     state: present
 
-- name: Renaming kafka downloaded directory for ease of use
-  copy:
+- name: Renaming downloaded Kafka directory for ease of use
+  ansible.builtin.copy:
     src: "{{ installation_dir }}/kafka_{{ kafka_major_version }}-{{ kafka_minor_verion }}/"
     dest: "{{ installation_dir }}/kafka"
     owner: "{{ kafka_service_user_name }}"
     group: "{{ kafka_service_group_name }}"
-    remote_src: yes
+    remote_src: true
+    mode: "0755"
 
-- name: Deleting the downloaded kafka folder
-  file:
+- name: Deleting downloaded files and directory
+  ansible.builtin.file:
     path: "{{ item }}"
     state: absent
-  with_items:
+  loop:
     - "{{ installation_dir }}/kafka_{{ kafka_major_version }}-{{ kafka_minor_verion }}"
     - "{{ installation_dir }}/kafka_{{ kafka_major_version }}-{{ kafka_minor_verion }}.tgz"
