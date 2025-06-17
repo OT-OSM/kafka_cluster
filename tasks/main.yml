@@ -11,4 +11,4 @@
 
 - name: Configure Kafka
   ansible.builtin.include_tasks: configure-kafka.yml
-  when: inventory_hostname in groups['kafka']
+  when: inventory_hostname in groups['kafka_cluster']

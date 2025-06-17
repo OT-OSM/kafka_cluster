@@ -7,7 +7,7 @@
 - name: Check if Kafka group is defined and non-empty
   ansible.builtin.fail:
     msg: "Playbook execution aborted due to missing or empty required group 'kafka'"
-  when: groups['kafka'] is not defined or groups['kafka'] | length == 0
+  when: groups['kafka_cluster'] is not defined or groups['kafka_cluster'] | length == 0
 
 - name: Check if Java is installed
   ansible.builtin.command: "java -version"
